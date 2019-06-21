@@ -1,5 +1,5 @@
-import { Component, OnInit, HostListener, ElementRef } from '@angular/core';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { Component, OnInit, HostListener, ElementRef, Output, EventEmitter } from '@angular/core';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-phone-input',
@@ -12,6 +12,7 @@ export class PhoneInputComponent implements OnInit {
   countryCode = '+55';
   form: FormGroup;
   flag = 'br';
+  @Output() onTelephoneChanged = new EventEmitter<string>();
 
   constructor(private fb: FormBuilder,
     private eRef: ElementRef ) { }
@@ -28,7 +29,9 @@ export class PhoneInputComponent implements OnInit {
 
   initializeForm() {
     this.form = this.fb.group({
-      countryCode: '+55'    });
+      countryCode: ['+55', Validators.required],
+      telephone: [null, Validators.required],    
+    });
   }
 
   toggleList() {
@@ -43,6 +46,14 @@ export class PhoneInputComponent implements OnInit {
 
   getCountryFlag() {
     return 'flag-icon-' + this.flag; 
+  }
+
+  telephoneChanged() {
+    if(this.form.valid) {
+      const code = this.form.get('countryCode').value;
+      const phone = this.form.get('telephone').value
+      this.onTelephoneChanged.emit( code + phone);
+    }
   }
 
 

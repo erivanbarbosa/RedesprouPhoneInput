@@ -1,5 +1,7 @@
 <div class="container" style="margin:0">
     <div class="form-group col-xs-6" style="margin-top: 30px;">
-        <app-phone-input></app-phone-input>
+        <app-phone-input (onTelephoneChanged)="printTelephone($event)"></app-phone-input>
+
+        <span>{{telephone}}</span>
     </div>
     <router-outlet></router-outlet>

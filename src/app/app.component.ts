@@ -7,4 +7,10 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'redesprou-phone-input';
+  telephone = '';
+
+
+  printTelephone(event) {
+    this.telephone = event;
+  }
 }
