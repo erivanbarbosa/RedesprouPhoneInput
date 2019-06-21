@@ -9,6 +9,7 @@ import { FormGroup, FormBuilder } from '@angular/forms';
 export class PhoneInputComponent implements OnInit {
 
   public openList = false;
+  countryCode = '+55';
   form: FormGroup;
 
   constructor(private fb: FormBuilder,) { }
@@ -19,7 +20,7 @@ export class PhoneInputComponent implements OnInit {
 
   initializeForm() {
     this.form = this.fb.group({
-      countryCode: [null]
+      countryCode: '+55'
     });
 }
 
