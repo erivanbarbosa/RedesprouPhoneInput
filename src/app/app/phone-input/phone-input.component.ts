@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener, ElementRef } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 
 @Component({
@@ -13,10 +13,17 @@ export class PhoneInputComponent implements OnInit {
   form: FormGroup;
   flag = 'br';
 
-  constructor(private fb: FormBuilder, ) { }
+  constructor(private fb: FormBuilder,
+    private eRef: ElementRef ) { }
 
   ngOnInit() {
     this.initializeForm();
+  }
+
+  @HostListener('document:click', ['$event'])
+  clickout(event) {
+    if(!this.eRef.nativeElement.contains(event.target))
+      this.openList = false;
   }
 
   initializeForm() {
