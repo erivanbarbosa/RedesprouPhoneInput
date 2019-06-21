@@ -11,8 +11,9 @@ export class PhoneInputComponent implements OnInit {
   public openList = false;
   countryCode = '+55';
   form: FormGroup;
+  flag = 'br';
 
-  constructor(private fb: FormBuilder,) { }
+  constructor(private fb: FormBuilder, ) { }
 
   ngOnInit() {
     this.initializeForm();
@@ -20,12 +21,23 @@ export class PhoneInputComponent implements OnInit {
 
   initializeForm() {
     this.form = this.fb.group({
-      countryCode: '+55'
-    });
-}
+      countryCode: '+55'    });
+  }
 
   toggleList() {
     this.openList = !this.openList;
   }
+
+  changeCountryCode(code, flag) {
+    this.form.get('countryCode').setValue(code);
+    this.flag = flag;
+    this.toggleList();
+  }
+
+  getCountryFlag() {
+    return 'flag-icon-' + this.flag; 
+  }
+
+
 
 }
