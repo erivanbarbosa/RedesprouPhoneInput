@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'app-phone-input',
@@ -8,11 +9,19 @@ import { Component, OnInit } from '@angular/core';
 export class PhoneInputComponent implements OnInit {
 
   public openList = false;
+  form: FormGroup;
 
-  constructor() { }
+  constructor(private fb: FormBuilder,) { }
 
   ngOnInit() {
+    this.initializeForm();
   }
+
+  initializeForm() {
+    this.form = this.fb.group({
+      countryCode: [null]
+    });
+}
 
   toggleList() {
     this.openList = !this.openList;
