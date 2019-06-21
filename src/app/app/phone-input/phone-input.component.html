@@ -1,0 +1,17 @@
+<div class="phone-input">
+    <div class="input-group mb-3" style="width: max-content;">
+        <div class="input-group-prepend" style="border-right: none">
+            <div class="input-group-text" style="line-height: 38px;">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Flag_of_Brazil.svg/1200px-Flag_of_Brazil.svg.png" alt="">
+                <i class="fa fa-sort-desc" style="padding: 5px;" aria-hidden="true" (click)="toggleList()"></i>
+            </div>
+        </div>
+
+        <input id="prefix-code" type="text" class="form-control">
+        <input id="telephone-number" type="text" class="form-control" style="max-width: 15em;">
+    </div>
+
+    <div *ngIf="openList" style="width: 100%; height: 300px; background-color: blue">
+
+    </div>
+</div>
