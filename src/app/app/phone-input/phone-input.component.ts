@@ -53,6 +53,8 @@ export class PhoneInputComponent implements OnInit {
       const code = this.form.get('countryCode').value;
       const phone = this.form.get('telephone').value
       this.onTelephoneChanged.emit( code + phone);
+    } else {
+      this.onTelephoneChanged.emit('');
     }
   }
 
