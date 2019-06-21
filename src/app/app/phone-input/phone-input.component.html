@@ -9,7 +9,7 @@
             </div>
 
             <input id="prefix-code" type="text" class="form-control" formControlName="countryCode">
-            <input id="telephone-number" type="text" class="form-control" formControlName="telephone" (click)="openList = false" (change)="telephoneChanged()">
+            <input id="telephone-number" type="text" mask="(00) 0 0000-0000" class="form-control" formControlName="telephone" (click)="openList = false" (change)="telephoneChanged()">
         </div>
 
         <div class="country-list" *ngIf="openList">
