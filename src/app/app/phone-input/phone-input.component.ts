@@ -1,5 +1,7 @@
 import { Component, OnInit, HostListener, ElementRef, Output, EventEmitter, forwardRef } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { TelephoneUtils } from '../TelephoneUtils';
+import { CountryCodeData } from '../CountryCodeData';
 const noop = () => { };
 
 @Component({
@@ -16,14 +18,13 @@ const noop = () => { };
 })
 
 export class PhoneInputComponent implements OnInit, ControlValueAccessor {
-
-
   public openList = false;
   countryCode = '+55';
   form: FormGroup;
   flag = 'br';
   @Output() onTelephoneChanged = new EventEmitter<string>();
   innerValue = 'teste';
+  telephoneUtils: TelephoneUtils
 
   
   private onTouchedCallback: () => void = noop;
@@ -33,7 +34,10 @@ export class PhoneInputComponent implements OnInit, ControlValueAccessor {
   writeValue(value: any) {
     if(value) {
       this.innerValue = value;
+      const countryData: CountryCodeData = this.telephoneUtils.getCountryCodeData(value); 
+      this.form.get('countryCode').setValue(countryData.code);
       this.form.get('telephone').setValue(value);
+      this.flag = countryData.iso2.toLowerCase();
       this.onChangeCallback(this.innerValue);
     } 
   }
@@ -51,7 +55,9 @@ export class PhoneInputComponent implements OnInit, ControlValueAccessor {
   }
 
   constructor(private fb: FormBuilder,
-    private eRef: ElementRef ) { }
+    private eRef: ElementRef ) { 
+      this.telephoneUtils = new TelephoneUtils();
+    }
 
   ngOnInit() {
     this.initializeForm();

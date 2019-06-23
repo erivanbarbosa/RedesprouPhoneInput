@@ -19,7 +19,7 @@ export class AppComponent {
 
   initializeForm() {
     this.form = this.fb.group({
-      telephone: ['62993718452'],    
+      telephone: ['+162993718452'],    
     });
   }
 
