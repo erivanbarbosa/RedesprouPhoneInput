@@ -8,20 +8,12 @@ const noop = () => { };
   selector: 'app-phone-input',
   templateUrl: './phone-input.component.html',
   styleUrls: ['./phone-input.component.css'],
-  providers: [
-    {
-      provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => PhoneInputComponent),
-      multi: true
-    }]
-
+  providers: [{provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => PhoneInputComponent), multi: true }]
 })
 
 export class PhoneInputComponent implements OnInit, ControlValueAccessor {
   public openList = false;
   form: FormGroup;
-  @Output() onTelephoneChanged = new EventEmitter<string>();
-  innerValue = 'teste';
   telephoneUtils: TelephoneUtils
 
   private onTouchedCallback: () => void = noop;
@@ -30,12 +22,12 @@ export class PhoneInputComponent implements OnInit, ControlValueAccessor {
 
   writeValue(value: any) {
     if(value) {
-      this.innerValue = value;
       const countryData: CountryCodeData = this.telephoneUtils.getCountryCodeData(value); 
+      this.form.get('fullTelephone').setValue(value);
       this.form.get('countryCode').setValue(countryData.code);
       this.form.get('telephone').setValue(value);
       this.form.get('flag').setValue(countryData.iso2.toLowerCase());
-      this.onChangeCallback(this.innerValue);
+      this.onChangeCallback(this.form.get('fullTelephone').value);
     } 
   }
 
@@ -70,7 +62,8 @@ export class PhoneInputComponent implements OnInit, ControlValueAccessor {
     this.form = this.fb.group({
       countryCode: ['+55', Validators.required],
       telephone: [null, Validators.required],
-      flag: ['br'],
+      fullTelephone: [null, Validators.required],
+      flag: ['br', Validators.required],
     });
   }
 
@@ -92,8 +85,8 @@ export class PhoneInputComponent implements OnInit, ControlValueAccessor {
     if(this.form.valid) {
       const code = this.form.get('countryCode').value;
       const phone = this.form.get('telephone').value
-      this.innerValue =  code + phone;
-      this.onChangeCallback(this.innerValue);
+      this.form.get('fullTelephone').setValue(code + phone);
+      this.onChangeCallback(this.form.get('fullTelephone').value);
     }
   }
 }
