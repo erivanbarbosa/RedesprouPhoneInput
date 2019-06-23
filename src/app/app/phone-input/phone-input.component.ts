@@ -19,14 +19,11 @@ const noop = () => { };
 
 export class PhoneInputComponent implements OnInit, ControlValueAccessor {
   public openList = false;
-  countryCode = '+55';
   form: FormGroup;
-  flag = 'br';
   @Output() onTelephoneChanged = new EventEmitter<string>();
   innerValue = 'teste';
   telephoneUtils: TelephoneUtils
 
-  
   private onTouchedCallback: () => void = noop;
   private onChangeCallback: (_: any) => void = noop;
   disabled: boolean;
@@ -37,7 +34,7 @@ export class PhoneInputComponent implements OnInit, ControlValueAccessor {
       const countryData: CountryCodeData = this.telephoneUtils.getCountryCodeData(value); 
       this.form.get('countryCode').setValue(countryData.code);
       this.form.get('telephone').setValue(value);
-      this.flag = countryData.iso2.toLowerCase();
+      this.form.get('flag').setValue(countryData.iso2.toLowerCase());
       this.onChangeCallback(this.innerValue);
     } 
   }
@@ -72,7 +69,8 @@ export class PhoneInputComponent implements OnInit, ControlValueAccessor {
   initializeForm() {
     this.form = this.fb.group({
       countryCode: ['+55', Validators.required],
-      telephone: [null, Validators.required],    
+      telephone: [null, Validators.required],
+      flag: ['br'],
     });
   }
 
@@ -82,27 +80,20 @@ export class PhoneInputComponent implements OnInit, ControlValueAccessor {
 
   changeCountryCode(code, flag) {
     this.form.get('countryCode').setValue(code);
-    this.flag = flag;
+    this.form.get('flag').setValue(flag);
     this.toggleList();
   }
 
-  getCountryFlag() {
-    return 'flag-icon-' + this.flag; 
+  getCountryFlag(): string {
+    return 'flag-icon-' + this.form.get('flag').value; 
   }
 
-  telephoneChanged() {
+  telephoneChanged(): void {
     if(this.form.valid) {
       const code = this.form.get('countryCode').value;
       const phone = this.form.get('telephone').value
       this.innerValue =  code + phone;
       this.onChangeCallback(this.innerValue);
-      this.onTelephoneChanged.emit( code + phone);
-    } else {
-      this.onTelephoneChanged.emit('');
     }
   }
-
-
-
-
 }

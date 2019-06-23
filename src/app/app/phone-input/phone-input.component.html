@@ -3,7 +3,7 @@
         <div class="input-group mb-3">
             <div class="input-group-prepend">
                 <div class="input-group-text">
-                    <span [ngClass]="{'flag-icon-br': flag == 'br','flag-icon-us': flag == 'us'}" class="flag-icon flag-icon-squared" (click)="toggleList()"></span>
+                    <span [ngClass]="getCountryFlag()" class="flag-icon flag-icon-squared" (click)="toggleList()"></span>
                     <i class="fa fa-sort-desc" aria-hidden="true" (click)="toggleList()"></i>
                 </div>
             </div>
