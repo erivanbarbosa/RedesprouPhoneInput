@@ -12,7 +12,6 @@
             <input id="telephone-number" type="text" 
                 mask="(00) 0 0000-0000" class="form-control" 
                 formControlName="telephone"
-                [attr.disabled]="settings.disabled ? true : null"
                 (click)="openList = false" 
                 (change)="telephoneChanged()">
         </div>

@@ -44,12 +44,10 @@ export class PhoneInputComponent implements OnInit, ControlValueAccessor {
     this.settings.disabled = isDisabled; 
   }
 
-  constructor(private fb: FormBuilder,
-    private eRef: ElementRef ) {
+  constructor(private fb: FormBuilder, private eRef: ElementRef ) {
       this.settings = new PhoneInputSettings();
-      this.settings.disabled = true;
       this.telephoneUtils = new TelephoneUtils();
-    }
+  }
 
   ngOnInit() {
     this.initializeForm();
