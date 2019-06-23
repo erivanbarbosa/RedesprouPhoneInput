@@ -62,10 +62,10 @@ export class PhoneInputComponent implements OnInit, ControlValueAccessor {
 
   initializeForm() {
     this.form = this.fb.group({
-      countryCode: ['+55', Validators.required],
+      countryCode: [this.settings.defaultCountryCode, Validators.required],
       telephone: [null, Validators.required],
-      fullTelephone: [null, Validators.required],
-      flag: [this.settings.defaultCountryCode, Validators.required],
+      fullTelephone: [null],
+      flag: [this.settings.defaultCountryFlag, Validators.required],
     });
   }
 
@@ -76,6 +76,7 @@ export class PhoneInputComponent implements OnInit, ControlValueAccessor {
   changeCountryCode(code, flag) {
     this.form.get('countryCode').setValue(code);
     this.form.get('flag').setValue(flag);
+    this.telephoneChanged();
     this.toggleList();
   }
 
@@ -84,12 +85,10 @@ export class PhoneInputComponent implements OnInit, ControlValueAccessor {
   }
 
   telephoneChanged(): void {
-    if(this.form.valid) {
       const code = this.form.get('countryCode').value;
       const phone = this.form.get('telephone').value
       this.form.get('fullTelephone').setValue(code + phone);
       this.onChangeCallback(this.form.get('fullTelephone').value);
-    }
   }
 
   getPhoneMask(): string {
