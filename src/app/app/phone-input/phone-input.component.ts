@@ -64,7 +64,7 @@ export class PhoneInputComponent implements OnInit, ControlValueAccessor {
       countryCode: ['+55', Validators.required],
       telephone: [null, Validators.required],
       fullTelephone: [null, Validators.required],
-      flag: ['br', Validators.required],
+      flag: [this.settings.defaultCountryCode, Validators.required],
     });
   }
 
