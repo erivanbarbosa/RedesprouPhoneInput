@@ -1,7 +1,11 @@
+<form [formGroup]="form">
 <div class="container" style="margin:0">
     <div class="form-group col-xs-6" style="margin-top: 30px;">
-        <app-phone-input (onTelephoneChanged)="printTelephone($event)"></app-phone-input>
+        <app-phone-input (onTelephoneChanged)="printTelephone($event)" formControlName="telephone"></app-phone-input>
 
         <span>{{telephone}}</span>
+
+        <span>{{form.value.telephone}}</span>
     </div>
-    <router-outlet></router-outlet>
+</div>
+</form>
