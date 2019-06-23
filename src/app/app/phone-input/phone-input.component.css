@@ -84,3 +84,9 @@ ul {
 .flag-icon {
     margin-right: 10px;
 }
+
+[disabled] input, [disabled] .input-group-text {
+    background-color: #e9ecef;
+    opacity: 1;
+    pointer-events: none;
+}

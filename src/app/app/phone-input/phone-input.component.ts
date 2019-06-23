@@ -1,7 +1,8 @@
-import { Component, OnInit, HostListener, ElementRef, Output, EventEmitter, forwardRef } from '@angular/core';
+import { Component, OnInit, HostListener, ElementRef, Output, EventEmitter, forwardRef, Input } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { TelephoneUtils } from '../TelephoneUtils';
 import { CountryCodeData } from '../CountryCodeData';
+import { PhoneInputSettings } from '../PhoneInputSettings';
 const noop = () => { };
 
 @Component({
@@ -15,10 +16,10 @@ export class PhoneInputComponent implements OnInit, ControlValueAccessor {
   public openList = false;
   form: FormGroup;
   telephoneUtils: TelephoneUtils
+  @Input('settings') public settings: PhoneInputSettings;
 
   private onTouchedCallback: () => void = noop;
   private onChangeCallback: (_: any) => void = noop;
-  disabled: boolean;
 
   writeValue(value: any) {
     if(value) {
@@ -40,11 +41,13 @@ export class PhoneInputComponent implements OnInit, ControlValueAccessor {
   }
 
   setDisabledState(isDisabled: boolean): void {
-    this.disabled = isDisabled; 
+    this.settings.disabled = isDisabled; 
   }
 
   constructor(private fb: FormBuilder,
-    private eRef: ElementRef ) { 
+    private eRef: ElementRef ) {
+      this.settings = new PhoneInputSettings();
+      this.settings.disabled = true;
       this.telephoneUtils = new TelephoneUtils();
     }
 

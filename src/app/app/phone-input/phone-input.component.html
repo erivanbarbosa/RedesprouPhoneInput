@@ -1,5 +1,5 @@
 <form [formGroup]="form">
-    <div class="phone-input">
+    <div class="phone-input" [attr.disabled]="settings.disabled ? true : null">
         <div class="input-group mb-3">
             <div class="input-group-prepend">
                 <div class="input-group-text">
@@ -9,7 +9,12 @@
             </div>
 
             <input id="prefix-code" type="text" class="form-control" formControlName="countryCode">
-            <input id="telephone-number" type="text" mask="(00) 0 0000-0000" class="form-control" formControlName="telephone" (click)="openList = false" (change)="telephoneChanged()">
+            <input id="telephone-number" type="text" 
+                mask="(00) 0 0000-0000" class="form-control" 
+                formControlName="telephone"
+                [attr.disabled]="settings.disabled ? true : null"
+                (click)="openList = false" 
+                (change)="telephoneChanged()">
         </div>
 
         <div class="country-list" *ngIf="openList">
