@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, Validators, ControlValueAccessor, NG_VALUE_ACCE
 import { TelephoneUtils } from '../TelephoneUtils';
 import { CountryCodeData } from '../CountryCodeData';
 import { PhoneInputSettings } from '../PhoneInputSettings';
+import { MaskUtils } from '../MaskUtils';
 const noop = () => { };
 
 @Component({
@@ -89,5 +90,9 @@ export class PhoneInputComponent implements OnInit, ControlValueAccessor {
       this.form.get('fullTelephone').setValue(code + phone);
       this.onChangeCallback(this.form.get('fullTelephone').value);
     }
+  }
+
+  getPhoneMask(): string {
+    return MaskUtils.getTelephoneMaskByCountry(this.form.get('telephone').value, this.form.get('countryCode').value)
   }
 }

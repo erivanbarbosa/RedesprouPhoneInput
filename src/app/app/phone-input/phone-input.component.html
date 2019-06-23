@@ -10,7 +10,7 @@
 
             <input id="prefix-code" type="text" class="form-control" formControlName="countryCode">
             <input id="telephone-number" type="text" 
-                mask="(00) 0 0000-0000" class="form-control" 
+                [mask]="getPhoneMask()" class="form-control" 
                 formControlName="telephone"
                 (click)="openList = false" 
                 (change)="telephoneChanged()">
