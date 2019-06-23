@@ -4,6 +4,7 @@ import { TelephoneUtils } from '../TelephoneUtils';
 import { CountryCodeData } from '../CountryCodeData';
 import { PhoneInputSettings } from '../PhoneInputSettings';
 import { MaskUtils } from '../MaskUtils';
+import { Translate } from '../Translate';
 const noop = () => { };
 
 @Component({
